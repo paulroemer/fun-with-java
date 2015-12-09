@@ -49,4 +49,53 @@ public class JavaFunTest {
 			// nop
 		}
 	}
+	
+	@Test
+	public void testGetSmallestSumWithoutNeighborsSuccess() {
+		int[] chain = new int[] { 2, 1, 3, 6 };
+		assertEquals(7, javaFun.getSmallestSumWithoutNeighbors(chain));
+		
+		// list length has to be >=3
+		chain = new int[] { 1, Integer.MAX_VALUE, 3 };
+		assertEquals(4, javaFun.getSmallestSumWithoutNeighbors(chain));
+	}
+	
+	@Test
+	public void testGetSmallestSumWithoutNeighborsFailed() {
+		// negative values are not allowed
+		int[] chain = new int[] { 2, 3, 4, 5, -1 };
+		try {
+			javaFun.getSmallestSumWithoutNeighbors(chain);
+			fail("IllegelArgumentException expected");
+		} catch(IllegalArgumentException e) {
+			// nop
+		}
+		
+		// list length has to be >=3
+		chain = new int[] { 1, Integer.MAX_VALUE };
+		try {
+			javaFun.getSmallestSumWithoutNeighbors(chain);
+			fail("IllegelArgumentException expected");
+		} catch(IllegalArgumentException e) {
+			// nop
+		}
+		
+		// 0 is an invalid value
+		chain = new int[] { 1, 3, 4, 0 };
+		try {
+			javaFun.getSmallestSumWithoutNeighbors(chain);
+			fail("IllegelArgumentException expected");
+		} catch(IllegalArgumentException e) {
+			// nop
+		}
+
+		// integer overflow
+		chain = new int[] { 1, 3, Integer.MAX_VALUE };
+		try {
+			javaFun.getSmallestSumWithoutNeighbors(chain);
+			fail("IllegelArgumentException expected");
+		} catch(IllegalArgumentException e) {
+			// nop
+		}
+	}
 }	
