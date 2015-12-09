@@ -48,7 +48,7 @@ public class JavaFun {
 	/**
 	 * Finds the smallest pair sum in given integer list in O(n logn)
 	 * 
-	 * @param chain List of Integers
+	 * @param chain List of DIFFERENT Integers
 	 * @throws IllegalArgumentException if given list's size is lower than two or negative values are included.
 	 * @return Smallest sum
 	 */
@@ -87,7 +87,7 @@ public class JavaFun {
 			checkForOverflow(first,  next);
 			int firstPossibleSmallestSum = first + next;
 			
-			// lookup the second possible smallest sum starting
+			// lookup the second possible smallest sum
 			iter = mapValueToIndex.keySet().iterator();
 			iter.next();
 			first = iter.next();
