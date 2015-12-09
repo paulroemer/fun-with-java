@@ -74,15 +74,35 @@ public class JavaFun {
 				throw new IllegalArgumentException("List includes negative value.");
 			}
 
-			// O(1) (at lease the third try has to be valid)
-			// lookup smallest pair sum without neighbors
+			//
+			// Lookup smallest pair sum without neighbors
+			//
+			
+			// Lookup the first possible smallest sum
 			Integer next = iter.next();
 			while(Math.abs(mapValueToIndex.get(next) - mapValueToIndex.get(first)) <= 1) {
 				next = iter.next();
 			}
-			
+			// TODO: if this sum is NOT the smallest sum we have to ignore the overflow here
 			checkForOverflow(first,  next);
-			return first + next;
+			int firstPossibleSmallestSum = first + next;
+			
+			// lookup the second possible smallest sum starting
+			iter = mapValueToIndex.keySet().iterator();
+			iter.next();
+			first = iter.next();
+			next = iter.next();
+			while(Math.abs(mapValueToIndex.get(next) - mapValueToIndex.get(first)) <= 1) {
+				next = iter.next();
+			}
+			checkForOverflow(first,  next);
+			int secondPossibleSmallestSum = first + next;
+			
+			if(firstPossibleSmallestSum < secondPossibleSmallestSum) {
+				return firstPossibleSmallestSum;
+			} else {
+				return secondPossibleSmallestSum;
+			}
 		} else {
 			throw new IllegalArgumentException("Size of list too small");
 		}

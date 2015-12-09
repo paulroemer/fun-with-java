@@ -52,11 +52,15 @@ public class JavaFunTest {
 	
 	@Test
 	public void testGetSmallestSumWithoutNeighborsSuccess() {
+		// second possible pair sum < first possible pair sum
 		int[] chain = new int[] { 2, 1, 3, 6 };
-		assertEquals(7, javaFun.getSmallestSumWithoutNeighbors(chain));
+		assertEquals(5, javaFun.getSmallestSumWithoutNeighbors(chain));
 		
-		// list length has to be >=3
+		// no overflow
 		chain = new int[] { 1, Integer.MAX_VALUE, 3 };
+		assertEquals(4, javaFun.getSmallestSumWithoutNeighbors(chain));
+		
+		chain = new int[] { 3, 2, 1, 6 };
 		assertEquals(4, javaFun.getSmallestSumWithoutNeighbors(chain));
 	}
 	
