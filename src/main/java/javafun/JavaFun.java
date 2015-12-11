@@ -1,18 +1,47 @@
 package javafun;
 
+import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 import javaslang.collection.List;
 
 public class JavaFun {
 	public static void main(String[] args) {
-		int[] chain = new int[] { 2, 1, 3, 6 };
-		System.out.println(new JavaFun().getSmallestSumWithoutNeighbors(chain)); // What should this print?
+		//int[] chain = new int[] { 2, 1, 3, 6 };
+		//System.out.println(new JavaFun().getSmallestSumWithoutNeighbors(chain)); // What should this print?
+
+		System.out.println(new JavaFun().fibonacciAverageForBigValues(100));
 	}
+	
+	/**
+	 * Returns the average of COUNT first Fibonacci numbers.
+	 * 
+	 * @param count A positive number for iteration count 
+	 * @return
+	 */
+	public String fibonacciAverageForBigValues(int count) {
+		if(count < 1) {
+			throw new IllegalArgumentException("Negative count value");
+		}
 		
+		BigInteger sum = BigInteger.ZERO;
+		BigInteger fib1 = BigInteger.ONE;
+		BigInteger fib2 = BigInteger.ONE;
+		BigInteger tmp = BigInteger.ZERO;
+		for(int i=1; i<=count; i++) {		
+			sum = sum.add(fib1);
+			tmp = fib1;
+			fib1 = fib2;
+			fib2 = fib2.add(tmp);
+		}
+		
+		BigInteger[] result = sum.divideAndRemainder(BigInteger.valueOf((long)count));
+		
+		return result[0].toString() + "." + result[1].toString();
+	}
+
 	/**
 	 * Finds the smallest pair sum in given int list in O(n logn)
 	 * 
@@ -55,6 +84,8 @@ public class JavaFun {
 	public int getSmallestSumWithoutNeighbors(int[] chain) {
 		// at least 3 values are needed
 		if (chain.length == 3) {
+			// trivial solution
+			// { X1, Y2, Z3 } only X1 and Z2 are not paired and the only solution
 			checkForOverflow(chain[0], chain[2]);
 			return chain[0] + chain[2];
 		}
