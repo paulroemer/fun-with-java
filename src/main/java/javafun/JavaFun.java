@@ -4,15 +4,25 @@ import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.function.BiFunction;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.IntStream;
 
+import javaslang.collection.CharSeq;
 import javaslang.collection.List;
 
 public class JavaFun {
 	public static void main(String[] args) {
 		//int[] chain = new int[] { 2, 1, 3, 6 };
 		//System.out.println(new JavaFun().getSmallestSumWithoutNeighbors(chain)); // What should this print?
+		
+		int[] chain = new int[] { 2, Integer.MAX_VALUE };
+		System.out.println(new JavaFun().getSmallestSumFunctional(chain));
 
-		System.out.println(new JavaFun().fibonacciAverageForBigValues(100));
+		//System.out.println(new JavaFun().fibonacciAverageForBigValues(100));
+		
+		//System.out.println(new JavaFun().countX("xxx"));
 	}
 	
 	/**
@@ -41,7 +51,24 @@ public class JavaFun {
 		
 		return result[0].toString() + "." + result[1].toString();
 	}
-
+	
+	/**
+	 * Finds the smallest pair sum in given int list in O(n logn)
+	 * 
+	 * @param chain List of Integers
+	 * @throws IllegalArgumentException if given list's size is lower than two or negative values are included.
+	 * @return Smallest sum
+	 */
+	public int getSmallestSumFunctional(int[] chain) {
+		/* Math.addExact() will throw ArithmeticException on overflow */
+		
+		// Java 8 only style
+		return IntStream.of(chain).sorted().limit(2).reduce((a,b) -> Math.addExact(a, b)).getAsInt();
+		
+		// Javaslang style
+		//return List.ofAll(chain).sort().take(2).fold(0, (a,b) -> Math.addExact(a, b) );
+	}	
+	
 	/**
 	 * Finds the smallest pair sum in given int list in O(n logn)
 	 * 
